@@ -1,0 +1,5 @@
+Colored Text | color the wrong answers
+Fix Accents | Ã³
+Change how MCQ and Writing questions are mixed (also flashcard ig) | Question Types
+Override wrong/right answers | Override
+Change "end of round" text and end of answer text | Good Job!
