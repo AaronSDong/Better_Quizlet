@@ -34,7 +34,7 @@ def start_screen():
 
 
 def choose_setlist():
-    study_sets_path = "../water_reminder/Better_Quizlet/Study Sets"
+    study_sets_path = "../Better_Quizlet/Study Sets"
 
     # Check if the directory exists
     if os.path.exists(study_sets_path) and os.path.isdir(study_sets_path):
