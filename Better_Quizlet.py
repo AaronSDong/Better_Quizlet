@@ -174,9 +174,9 @@ def game(study_set, question_types, randomize_questions):
                 too_many_flashcards = True
 
             # Ensures at least some MCQs are done if there are still some
-            if (round_num >= 4) and (multiple_choice_list != 0):
+            if (round_num >= 4) and (len(multiple_choice_list) != 0):
                 too_many_flashcards, too_many_writing = True, True
-            elif (round_num >= 4) and (flashcards_list != 0):
+            elif (round_num >= 4) and (len(flashcards_list) != 0):
                 too_many_writing = True
 
         # End of the round
