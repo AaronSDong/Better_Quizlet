@@ -305,7 +305,7 @@ def writing_question(study_set_questions, writing_list, question_index):
     print("Press enter to continue... \n")
 
     # Create overriding functionality
-    override_input = input(f'(To override the answer, type "override")')
+    override_input = input(f'(To override the answer, type "override")\n')
     if override_input.lower() == "override":
         question_correct = not question_correct
 
@@ -339,7 +339,7 @@ def flashcard_question(study_set_questions, flashcard_list, question_index):
     print("Press enter to continue...")
 
     # Create overriding functionality
-    override_input = input(f'(To override the answer, type "override")')
+    override_input = input(f'(To override the answer, type "override")\n')
     if override_input.lower() == "override":
         question_correct = not question_correct
 
@@ -403,7 +403,7 @@ def multiple_choice_question(study_set_questions, multiple_choice_list, question
     print("\nPress enter to continue...")
 
     # Create overriding functionality
-    override_input = input(f'(To override the answer, type "override")')
+    override_input = input(f'(To override the answer, type "override")\n')
     if override_input.lower() == "override":
         question_correct = not question_correct
 
