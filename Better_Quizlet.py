@@ -187,13 +187,14 @@ def game(study_set, question_types, randomize_questions):
         else:
             temp_enable_question_types[0] = True
 
-        print("\nGood Job So Far!\n")
+        if study_set_length != len(finished_questions):
+            print("\nGood Job So Far!\n")
         time.sleep(.5)
         input("Press enter to continue... ")
 
     # End
     print(f'\nStudy Set Completed!\n')
-    input(f'Press enter to continue... \n')
+    input(f'Press enter to continue... \n\n\n')
     time.sleep(.5)
 
 
