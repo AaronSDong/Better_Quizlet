@@ -6,6 +6,11 @@ import random
 import time
 from colorama import Fore, Style, init
 
+pregame_settings = {
+    "randomize_questions": False,
+    "flip_def_and_term": True
+}
+
 
 init(autoreset=True)
 
@@ -25,8 +30,9 @@ def start_screen():
         if menu_input.lower() == "start":
             study_set = choose_setlist()
             question_types = ask_question_types()
-            randomize_questions = ask_randomize_questions()
-            game(study_set, question_types, randomize_questions)
+            ask_randomize_questions()
+            ask_to_flip_definition_and_term()
+            game(study_set, question_types)
         elif menu_input.lower() == "settings":
             settings()
         else:
@@ -108,14 +114,29 @@ def ask_randomize_questions():
             choice = input("Do you want to randomize questions? (yes/no): ").lower()
             print('\n')
             if choice in ['yes', 'no']:
-                return choice == 'yes'
+                pregame_settings["randomize_questions"] = (choice == 'yes')
+                return
             else:
                 print_error("Invalid choice. Please enter 'yes' or 'no'.\n")
         except ValueError:
             print_error("Invalid input. Please enter 'yes' or 'no'.\n")
 
 
-def game(study_set, question_types, randomize_questions):
+def ask_to_flip_definition_and_term():
+    while True:
+        try:
+            choice = input("Do you want to flip definitions and terms? (yes/no): ").lower()
+            print('\n')
+            if choice in ['yes', 'no']:
+                pregame_settings["flip_def_and_term"] = (choice == 'yes')
+                return
+            else:
+                print_error("Invalid choice. Please enter 'yes' or 'no'.\n")
+        except ValueError:
+            print_error("Invalid input. Please enter 'yes' or 'no'.\n")
+
+
+def game(study_set, question_types):
     # Find number of terms in a study set
     with open(f'Study Sets//{study_set}', 'r') as f:
         study_set_length = len(f.readlines())
@@ -136,17 +157,17 @@ def game(study_set, question_types, randomize_questions):
     # Create a list for the first chosen question type
     if "Multiple Choice" in question_types:
         multiple_choice_list = list(range(study_set_length))
-        if randomize_questions:
+        if pregame_settings["randomize_questions"]:
             random.shuffle(multiple_choice_list)
 
     elif "Flashcards" in question_types:
         flashcards_list = list(range(study_set_length))
-        if randomize_questions:
+        if pregame_settings["randomize_questions"]:
             random.shuffle(flashcards_list)
 
     elif "Writing" in question_types:
         writing_list = list(range(study_set_length))
-        if randomize_questions:
+        if pregame_settings["randomize_questions"]:
             random.shuffle(writing_list)
 
     # ACTUAL GAME STARTS HERE
@@ -293,7 +314,12 @@ def find_question_number(question_list, already_used_questions):
 def writing_question(study_set_questions, writing_list, question_index):
     question = study_set_questions[writing_list[question_index]]
 
-    term, definition = question.split(" | ")
+    # Choose if to give the definition or term
+    if pregame_settings["flip_def_and_term"]:
+        definition, term = question.split(" | ")
+    else:
+        term, definition = question.split(" | ")
+
     user_input = input(f"Definition: {definition.strip()}\nYour answer: ")
 
     if user_input.lower() == term.lower():
@@ -318,7 +344,12 @@ def writing_question(study_set_questions, writing_list, question_index):
 def flashcard_question(study_set_questions, flashcard_list, question_index):
     # Extract info from list to create question
     question = study_set_questions[flashcard_list[question_index]]
-    term, definition = question.split(" | ")
+
+    # Choose if to give the definition or term
+    if pregame_settings["flip_def_and_term"]:
+        definition, term = question.split(" | ")
+    else:
+        term, definition = question.split(" | ")
 
     # Flashcard Process
     input(f"Definition: {definition.strip()}\nPress enter to reveal the term...")
@@ -351,7 +382,12 @@ def flashcard_question(study_set_questions, flashcard_list, question_index):
 
 def multiple_choice_question(study_set_questions, multiple_choice_list, question_index):
     question = study_set_questions[multiple_choice_list[question_index]]
-    term, definition = question.split(" | ")
+
+    # Choose if to give the definition or term
+    if pregame_settings["flip_def_and_term"]:
+        definition, term = question.split(" | ")
+    else:
+        term, definition = question.split(" | ")
 
     # Get wrong answers
     wrong_question_terms = []
