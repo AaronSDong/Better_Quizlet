@@ -20,8 +20,16 @@ def print_error(message):
 
 
 def start_screen():
+    big_text = (r" ____  ______ _______ _______ ______ _____     ____  _    _ _____ _______      ______ _______" + "\n"
+                r"|  _ \|  ____|__   __|__   __|  ____|  __ \   / __ \| |  | |_   _|___  / |    |  ____|__   __|" + "\n"
+                r"| |_) | |__     | |     | |  | |__  | |__) | | |  | | |  | | | |    / /| |    | |__     | |" + "\n"
+                r"|  _ <|  __|    | |     | |  |  __| |  _  /  | |  | | |  | | | |   / / | |    |  __|    | |" + "\n"
+                r"| |_) | |____   | |     | |  | |____| | \ \  | |__| | |__| |_| |_ / /__| |____| |____   | |" + "\n"
+                r"|____/|______|  |_|     |_|  |______|_|  \_\  \___\_\\____/|_____/_____|______|______|  |_|  "
+                "(tm)\n")
     while True:
-        print(f'Welcome to "Better" Quizlet! (tm) \n\n'
+
+        print(f'Welcome to\n {big_text} \n'
               f'In order to start, type "start" \n\n'
               f'In order to go into settings, type "settings" \n\n')
 
@@ -48,7 +56,7 @@ def choose_setlist():
         study_sets = os.listdir(study_sets_path)
 
         # Print the available study sets
-        print(f"\nAvailable Study Sets:\n")
+        print(f"\nAvailable Study Sets: \n")
         for index, set_file in enumerate(study_sets, start=1):
             print(f"{index}. {set_file}")
 
