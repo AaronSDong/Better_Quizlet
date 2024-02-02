@@ -361,9 +361,9 @@ def flashcard_question(study_set_questions, flashcard_list, question_index):
 
     # Flashcard Process
     input(f"Definition: {definition.strip()}\nPress enter to reveal the term...")
-    user_input = input(f"\nTerm: {term}\nDid you get it correct? (yes/no): ")
 
     while True:
+        user_input = input(f"\nTerm: {term}\nDid you get it correct? (yes/no): ")
         if user_input.lower() == 'yes':
             print("\nGreat job! You got it right!\n")
             question_correct = True
