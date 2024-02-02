@@ -1,4 +1,2 @@
 Colored Text
-Fix Accents, Ã³
-Override wrong/right answers
 Make the settings option usable

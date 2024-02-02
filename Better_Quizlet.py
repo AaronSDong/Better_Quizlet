@@ -34,7 +34,7 @@ def start_screen():
 
 
 def choose_setlist():
-    study_sets_path = "../water_reminder/Better_Quizlet/Study Sets"
+    study_sets_path = "../Better_Quizlet/Study Sets"
 
     # Check if the directory exists
     if os.path.exists(study_sets_path) and os.path.isdir(study_sets_path):
@@ -173,10 +173,12 @@ def game(study_set, question_types, randomize_questions):
             elif list_disabler == "disable_flashcards":
                 too_many_flashcards = True
 
-            # Ensures at least some MCQs are done if there are still some
-            if (round_num >= 4) and (multiple_choice_list != 0):
+            # Ensures at least some MCQs/Flashcards are done if there are still some
+            # (But stops once MCQs/Flashcards list is greater than 8)
+            if ((round_num >= 4) and (len(multiple_choice_list) != 0) and
+                    ((len(flashcards_list) <= 8) or (len(writing_list) <= 8))):
                 too_many_flashcards, too_many_writing = True, True
-            elif (round_num >= 4) and (flashcards_list != 0):
+            elif (round_num >= 4) and (len(flashcards_list) != 0) and (len(writing_list) <= 8):
                 too_many_writing = True
 
         # End of the round
@@ -185,13 +187,14 @@ def game(study_set, question_types, randomize_questions):
         else:
             temp_enable_question_types[0] = True
 
-        print("\nGood Job So Far!\n")
+        if study_set_length != len(finished_questions):
+            print("\nGood Job So Far!\n")
         time.sleep(.5)
         input("Press enter to continue... ")
 
     # End
     print(f'\nStudy Set Completed!\n')
-    input(f'Press enter to continue... \n')
+    input(f'Press enter to continue... \n\n\n')
     time.sleep(.5)
 
 
@@ -300,7 +303,13 @@ def writing_question(study_set_questions, writing_list, question_index):
         print(f"\nWrong! The correct term is {term}. \n")
         question_correct = False
 
-    input("Press enter to continue... \n")
+    print("Press enter to continue... \n")
+
+    # Create overriding functionality
+    override_input = input(f'(To override the answer, type "override")\n')
+    if override_input.lower() == "override":
+        question_correct = not question_correct
+
     time.sleep(.5)
 
     return question_correct
@@ -315,14 +324,26 @@ def flashcard_question(study_set_questions, flashcard_list, question_index):
     input(f"Definition: {definition.strip()}\nPress enter to reveal the term...")
     user_input = input(f"\nTerm: {term}\nDid you get it correct? (yes/no): ")
 
-    if user_input.lower() == 'yes':
-        print("\nGreat job! You got it right!\n")
-        question_correct = True
-    else:
-        print(f"\nNice try! You'll get it next time!\n")
-        question_correct = False
+    while True:
+        if user_input.lower() == 'yes':
+            print("\nGreat job! You got it right!\n")
+            question_correct = True
+            break
+        elif user_input.lower() == 'no':
+            print(f"\nNice try! You'll get it next time!\n")
+            question_correct = False
+            break
 
-    input("Press enter to continue...")
+        # An invalid response was given
+        print("Please input a valid response (yes/no)")
+
+    print("Press enter to continue...")
+
+    # Create overriding functionality
+    override_input = input(f'(To override the answer, type "override")\n')
+    if override_input.lower() == "override":
+        question_correct = not question_correct
+
     time.sleep(.5)
 
     return question_correct
@@ -362,9 +383,9 @@ def multiple_choice_question(study_set_questions, multiple_choice_list, question
     for index, option in enumerate(options, start=1):
         print(f"{index}. {option}")
 
-    user_input = input("\nEnter the number corresponding to the correct term: ")
-
     while True:
+        user_input = input("\nEnter the number corresponding to the correct term: ")
+
         try:
             chosen_index = int(user_input) - 1
 
@@ -380,7 +401,13 @@ def multiple_choice_question(study_set_questions, multiple_choice_list, question
         except ValueError:
             print("\nInvalid input. Please enter a valid number.")
 
-    input("\nPress enter to continue...")
+    print("\nPress enter to continue...")
+
+    # Create overriding functionality
+    override_input = input(f'(To override the answer, type "override")\n')
+    if override_input.lower() == "override":
+        question_correct = not question_correct
+
     time.sleep(.5)
 
     return question_correct
