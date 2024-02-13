@@ -2,7 +2,7 @@ La carnicería | Butcher Shop
 La frutería | Fruit Store
 La lavandería | Laundromat
 El banco | Bank
-El correo | Post office
+El correo | Mail; Post Office
 El estacionamiento | Parking lot
 La heladería | Ice cream shop
 La joyería | Jewelry store
@@ -24,9 +24,16 @@ Dinero, tiempo, gasolina, electricidad | Money, time, gasoline, electricity
 Cobrar | To cash (a check); to charge
 Depositar | To deposit
 Firmar | To sign (a document)
-Un documento, un contrato, una forma | Document, contract, form
+Documento, contrato, forma | Document, contract, form
 Llenar un formulario | To fill out a form
 Pagar a plazos | To pay in installments
 Pagar al contado/en efectivo | To pay in cash
 Pedir un préstamo | To apply for a loan
 Ser gratis | To be free of charge
+El cartero | Mail carrier
+La estampilla, el sello | Stamp
+El paquete | Package
+El sobre | Envelope
+Echar al buzón | To mail
+La carta | Letter
+Enviar, mandar | To send/mail
